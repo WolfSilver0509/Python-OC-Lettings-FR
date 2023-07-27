@@ -1,26 +1,17 @@
-from django.test import Client
+from django.test import TestCase
 from django.urls import reverse
-import pytest
 
-client = Client()
+class LettingsTestCase(TestCase):
+    def test_lettings_index(self):
+        """ Test pour la page d'accueil """
+        url = reverse('lettings_index')
+        response = self.client.get(url)
+        html_content = response.content
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Lettings", html_content)
 
-@pytest.mark.django_db
-def test_lettings_index(client):
-    """ Test pour la page d'accueil """
-    url = reverse('lettings_index')  # Utilisation de la fonction reverse pour récupérer l'URL par son nom
-    response = client.get(url)
-    html_content = response.content
-    assert response.status_code == 200
-    assert b"Lettings" in html_content
-
-
-@pytest.mark.django_db
-def test_lettings(client):
-    """ Test pour la page de lettings """
-    url = reverse('letting', kwargs={'letting_id': 1})
-    response = client.get(url)
-    html_content = response.content
-    assert response.status_code == 200
-
-
-
+    def test_lettings(self):
+        """ Test pour la page de lettings """
+        url = reverse('letting', kwargs={'letting_id': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
