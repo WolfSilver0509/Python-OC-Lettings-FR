@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 class LettingsTestCase(TestCase):
+
+    fixtures = ['lettings.json']
     def test_lettings_index(self):
         """ Test pour la page d'accueil """
         url = reverse('lettings_index')
