@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.urls import reverse
 
+
 class ProfilesTestCase(TestCase):
 
     fixtures = ['auth.json', 'profiles.json']
+
     def test_profiles_index(self):
         """ Test pour la page d'accueil """
         url = reverse('profiles_index')

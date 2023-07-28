@@ -1,10 +1,12 @@
-def test_dummy():
-    assert 1
-# --/////////////////////////////////////////////////////////////////////////////////////////////////--
-
 from django.test import TestCase
 
+
+def test_dummy():
+    assert 1
+
+
 class IndexViewTestCase(TestCase):
+
     def test_index(self):
         """ Test pour la page d'accueil """
         response = self.client.get('/')
