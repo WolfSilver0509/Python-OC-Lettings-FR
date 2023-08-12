@@ -15,6 +15,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiez tout le contenu du projet dans le répertoire de travail de l'image
 COPY . /app/
 
+# Copiez les fichiers statiques avant d'exécuter collectstatic
+COPY ./static /app/static 
+
 # Exécutez la commande collectstatic pour copier les fichiers statiques.
 RUN python manage.py collectstatic --noinput
 
