@@ -1,22 +1,22 @@
-#name: Construction et Push d'image Docker
-#
-#on:
-#  push:
-#    branches:
-#      - test
-#
-#jobs:
-#  build-and-push:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Login to Docker Hub
-#        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Build and Push
-#        run: |
-#          docker build -t glaxer/app:$GITHUB_SHA .
-#          docker push glaxer/app:$GITHUB_SHA
+name: Construction et Push d'image Docker
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push
+        run: |
+          docker build -t glaxer/app:$GITHUB_SHA .
+          docker push glaxer/app:$GITHUB_SHA
