@@ -15,11 +15,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiez tout le contenu du projet dans le répertoire de travail de l'image
 COPY . /app/
 
-# Exécutez la commande collectstatic pour copier les fichiers statiques.
-RUN python manage.py collectstatic --noinput
-
-# Exposez le port sur lequel fonctionne votre application Django
 EXPOSE 8000
 
-# Commande pour exécuter votre application Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python3 manage.py collectstatic --noinput && python3 manage.py runserver 0.0.0.0:8000"]
+
+## Exécutez la commande collectstatic pour copier les fichiers statiques.
+#RUN python manage.py collectstatic --noinput
+#
+## Exposez le port sur lequel fonctionne votre application Django
+#EXPOSE 8000
+#
+## Commande pour exécuter votre application Django
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
