@@ -17,7 +17,7 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python3 manage.py collectstatic --noinput && python3 manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python3 manage.py collectstatic --noinput && gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000"]
 
 ## Exécutez la commande collectstatic pour copier les fichiers statiques.
 #RUN python manage.py collectstatic --noinput

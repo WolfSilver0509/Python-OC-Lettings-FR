@@ -31,5 +31,6 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build -t glaxer/app:$GITHUB_SHA .
-          docker push glaxer/app:$GITHUB_SHA
+          docker-compose build
+          docker tag python-oc-lettings-fr-web:latest glaxer/python-oc-lettings-fr-web:latest
+          docker push glaxer/python-oc-lettings-fr-web:latest
