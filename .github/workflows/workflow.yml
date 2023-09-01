@@ -34,3 +34,14 @@ jobs:
           docker-compose build
           docker tag python-oc-lettings-fr_web:latest glaxer/python-oc-lettings-fr_web:latest
           docker push glaxer/python-oc-lettings-fr_web:latest
+
+  deployed:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Checkout du code
+          uses: actions/checkout@v2
+
+        - name: Connexion au serveur et exécution de ls
+          run: |
+            sshpass -p ${{ secrets.SSH_PASSWORD }} ssh ${{ secrets.SSH_USERNAME}}@${{ secrets.SSH_IP }}  "ls"
