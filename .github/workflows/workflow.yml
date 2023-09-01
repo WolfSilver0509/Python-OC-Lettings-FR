@@ -44,4 +44,4 @@ jobs:
 
         - name: Connexion au serveur et exécution de ls
           run: |
-            sshpass -p ${{ secrets.SSH_PASSWORD }} ssh ${{ secrets.SSH_USERNAME}}@${{ secrets.SSH_IP }}  "ls"
+            ssh -i <(echo "$SSH_PRIVATE_KEY") ${{ secrets.SSH_USERNAME}}@${{ secrets.SSH_IP }}  "ls"
