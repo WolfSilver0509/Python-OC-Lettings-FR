@@ -41,7 +41,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest  # Utilisez l'image Ubuntu par défaut
-    needs: docker-build-and-push
+    #needs: docker-build-and-push
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Deploy using ssh
@@ -53,7 +53,7 @@ jobs:
           port: 22
           source: "./nginx, docker-compose.prod.yml"
           target: "/home/ubuntu/myriam/"
-          script: |
-            cd /home/ubuntu/myriam
-            docker-compose -f docker-compose.prod.yml down -v
-            docker-compose -f docker-compose.prod.yml up -d --build
+#          script: |
+#            cd /home/ubuntu/myriam
+#            docker-compose -f docker-compose.prod.yml down -v
+#            docker-compose -f docker-compose.prod.yml up -d --build
