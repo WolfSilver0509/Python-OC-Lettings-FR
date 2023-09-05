@@ -37,7 +37,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest  # Utilisez l'image Ubuntu par défaut
-
+    needs: django-tests-and-docker
     steps:
       - name: Deploy using ssh
         uses: appleboy/ssh-action@master
