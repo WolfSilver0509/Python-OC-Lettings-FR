@@ -51,9 +51,9 @@ jobs:
           username: ${{ secrets.OVH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "./nginx, docker-compose.yml"
+          source: "./nginx, docker-compose.prod.yml"
           target: "/home/ubuntu/myriam/"
           script: |
             cd /home/ubuntu/apps
-            docker-compose down -v
-            docker-compose up -d --build
+            docker-compose -f docker-compose.prod.yml down -v
+            docker-compose -f docker-compose.prod.yml up -d --build
