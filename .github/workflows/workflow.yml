@@ -54,6 +54,6 @@ jobs:
           source: "./nginx, docker-compose.prod.yml"
           target: "/home/ubuntu/myriam/"
           script: |
-            cd /home/ubuntu/apps
+            cd /home/ubuntu/myriam
             docker-compose -f docker-compose.prod.yml down -v
             docker-compose -f docker-compose.prod.yml up -d --build
