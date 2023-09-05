@@ -35,13 +35,35 @@ jobs:
           docker tag python-oc-lettings-fr_web:latest glaxer/python-oc-lettings-fr_web:latest
           docker push glaxer/python-oc-lettings-fr_web:latest
 
-  deployed:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest  # Utilisez l'image Ubuntu par défaut
+
+    env:  # Définissez vos variables d'environnement ici
+      OVH_PRIVATE_KEY: ${{ secrets.OVH_PASSWORD }}  # Utilisez un secret pour les clés privées
+      OVH_USER: ${{ secrets.OVH_USER }}  # Utilisez un secret pour l'utilisateur OVH
+      OVH_IP_ADDRESS: ${{ secrets.OVH_IP }}  # Utilisez un secret pour l'adresse IP
 
     steps:
-        - name: Checkout du code
-          uses: actions/checkout@v2
+      - name: Checkout du code
+        uses: actions/checkout@v2  # Utilisez l'action de checkout pour obtenir le code du dépôt
 
-        - name: Connexion au serveur et exécution de ls
-          run: |
-            ssh -i <(echo "${{ secrets.SSH_KEY }}") ${{ secrets.SSH_USERNAME}}@${{ secrets.SSH_IP }}  "ls"
+      - name: Installer les dépendances
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client bash
+
+      - name: Configuration SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$OVH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+
+      - name: Copier les fichiers et déployer
+        run: |
+          chmod +x ./deploy.sh
+          scp -o StrictHostKeyChecking=no -r ./nginx ./docker-compose.prod.yml $OVH_USER@$OVH_IP:/home/$OVH_USER/myriam
+      - name: Deployer
+        run: |    
+          bash ./deploy.sh
