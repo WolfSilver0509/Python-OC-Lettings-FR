@@ -40,6 +40,7 @@ jobs:
           docker push glaxer/python-oc-lettings-fr_web:latest
   befor-deploy:
     name: Befor deploy
+    needs: docker-build-and-push
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
