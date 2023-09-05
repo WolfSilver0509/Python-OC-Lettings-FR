@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    image: glaxer/python-oc-lettings-fr_web
+    container_name: p13_python_oc
+    command: gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    volumes:
+      - .:/app
+
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - web
