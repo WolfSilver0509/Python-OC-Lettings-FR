@@ -1,10 +1,8 @@
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-import environ
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -14,16 +12,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(env('DEBUG'))
+DEBUG = int(os.environ.get("DEBUG", 0))
 
 ALLOWED_HOSTS = ["*"]
 
 # Sentry
 sentry_sdk.init(
-dsn=env('DNS'),
+dsn=os.getenv("DNS"),
 integrations=[DjangoIntegration()],
 # If you wish to associate users to errors (assuming you are using
 # django.contrib.auth) you may enable sending PII data.
