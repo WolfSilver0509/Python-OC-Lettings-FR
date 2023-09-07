@@ -13,7 +13,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.11.4
-
+      - name: generate .env file
+        run: | 
+          chmod +x ./setup_env.sh
+          ./setup_env.sh
+        shell: bash
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -51,7 +55,7 @@ jobs:
           username: ${{ secrets.OVH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "./nginx, docker-compose.prod.yml"
+          source: "./nginx, docker-compose.prod.yml, .env"
           target: "/home/ubuntu/myriam/"
 
   deploy:

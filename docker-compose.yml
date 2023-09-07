@@ -11,6 +11,7 @@ services:
       - .:/app
     networks:
       - nginx_network
+    env_file: .env
 
   nginx:
     build: ./nginx
