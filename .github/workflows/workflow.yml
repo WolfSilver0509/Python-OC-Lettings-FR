@@ -15,9 +15,9 @@ jobs:
           python-version: 3.11.4
       - name: generate .env file
         run: | 
-          echo DEBUG=${{ env.DEBUG }} >> .env
-          echo SECRET_KEY=${{ env.SECRET_KEY }} >> .env
-          echo DNS=${{ env.DNS }} >> .env
+          echo DEBUG=${{ secrets.DEBUG }} >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+          echo DNS=${{ secrets.DNS }} >> .env
 #          chmod +x ./setup_env.sh
 #          ./setup_env.sh
 #        shell: bash
